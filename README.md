@@ -88,6 +88,26 @@ next内置了http服务，使得不配置也可以很好地渲染页面。next�
 
 在页面缓存标记时 还有一定误差 需要进行优化
 
+## 请求工具
+
+支付服务端和客户端发送请求 isomorphic-unfetch  组件内服务端动作方法getInitialProps 
+
+## 样式
+css-in-js  styled-jsx 不提倡这种混合写法，单文件模块化较好
+
+
+## 部署
+
+script配置如下：
+
+"build": "next build"
+"start": "npm run build && cross-env NODE_ENV=production node server.js"
+"dev": "cross-env NODE_ENV=development node server.js"
+
+npm run build 打包项目
+npm run start 生产环境部署项目
+npm run dev 开发环境启动项目
+
 
 
 
