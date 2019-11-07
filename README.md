@@ -5,6 +5,10 @@ react + next 使用服务端渲染 缩短首屏加载时间 采用同构策略
 react react-dom next依赖 安装
 编写第一个组件进行渲染
 
+## 修改全局配置文件 
+进入文件夹： cd && ls -a
+查看文件： view [filename]
+
 ## 路由
 next/link 包 
 
@@ -63,7 +67,7 @@ next内置了http服务，使得不配置也可以很好地渲染页面。next�
 ——————
   | -- asserts         // ant-design全局less变量设置文件夹
   | -- components      // React展示组件(也就是UI组件)文件夹
-  | -- constants       // 整个应用的常量文件夹
+  |      -- constants       // 整个应用的常量文件夹
       | -- ActionsTypes.js   // 存放所有action type的常量文件
       | -- ApiUrlForBE.js    // 存放所有后端数据的apiUrl
       | -- ...
@@ -90,7 +94,7 @@ next内置了http服务，使得不配置也可以很好地渲染页面。next�
 
 ## 请求工具
 
-支付服务端和客户端发送请求 isomorphic-unfetch  组件内服务端动作方法getInitialProps 
+支付服务端和客户端发送请求 isomorphic-unfetch  next提供组件内服务端动作方法getInitialProps 
 
 ## 样式
 css-in-js  styled-jsx 不提倡这种混合写法，单文件模块化较好
@@ -108,7 +112,47 @@ npm run build 打包项目
 npm run start 生产环境部署项目
 npm run dev 开发环境启动项目
 
+## 强调编程格式
 
+### 函数式编程 
+
+引入概念： 纯函数（输入输出格式一致，比如slice是，splice不是， slice的输出不会改变原始作用对象）， 另外纯函数也不会使用外部作用变量，增加了认知负荷
+
+目的： 可缓存性、可移植性、可测试性、合理性
+
+### JSX 语法实用性
+    jsx会在执行渲染前，react dom会对任何嵌入的变量进行编码， 达到防注入攻击的目的，防止XSS
+    jsx可以使用React.createElement 进行对象方式创建组件
+    jsx可以是表达式，也可以嵌入表达式
+
+### 好用API 首先检查兼容性
+    上can i use 检测
+    
+    scrollIntoView  如果元素不在可视区域范围内，触发可使得元素滚动到可视区域范围内
+
+### 切换加载器
+    .styl 文件 安装 @zeit/next-stylus
+    .css  文件 安装 @zeit/next-css
+    .scss 文件 安装 @zeit/next-sass
+    .less 文件 安装 @zeit/next-less
+
+### 生命周期
+    getInititialProps 场景：在页面加载时加载数据, 返回js对象  
+                      运行位置： 服务器， 仅仅在page上，不可使用于子组件  触发点： 当切换link或者route时
+
+### 组件
+    1、生成<head> 添加key属性避免标签重复渲染，保证组件只渲染一次
+    2、动态导入: 自定义组件，决定SRR开启， 同时加载多个模块
+    3、自定义<App> _app.js : 控制页面初始化 可以处理如下事务： ① 当页面变化时保持页面布局 ② 当路由变化时保持页面状态 ③ 使用componentDidCatch 处理页面异常 ④ 注入额外数据到页面 
+    4、自定义<Document> _document.js: 
+    5、自定义错误处理_error.js
+    6、自定义配置
+    7、自定义目录配置
+    8、自定义next.config.js配置 webpack
+    9、启用简单命令
+
+### 使用技能
+    1、代码分割：异常边界捕获、 组件懒加载lazy、 组件降级处理（优化加载顺序）Suspense、路由分割
 
 
 
